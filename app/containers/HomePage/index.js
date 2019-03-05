@@ -17,9 +17,10 @@ import messages from './messages';
 export default class HomePage extends React.PureComponent {
   render() {
     return (
-      <h1>
+      <div>
         <FormattedMessage {...messages.header} />
-      </h1>
+        <h3>Erniukas</h3>
+      </div>
     );
   }
 }
