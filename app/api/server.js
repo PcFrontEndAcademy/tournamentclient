@@ -1,6 +1,6 @@
 import axios from 'axios';
 import CONFIG from './config';
-// import { SET_INFO } from '../containers/InfoProvider/constants';
+import { SET_INFO } from '../containers/InfoProvider/constants';
 
 axios.defaults.withCredentials = true;
 
@@ -27,19 +27,10 @@ export function DELETE(path, params = null, headers = null) {
 }
 
 function handleError(error) {
-  alert(error.message);
-  // let { message } = error;
-  // if (
-  //   error.response &&
-  //   error.response.data &&
-  //   error.response.data.responseStatus
-  // ) {
-  //   message =
-  //     error.response.data.responseStatus.message ||
-  //     error.response.data.responseStatus;
-  // }
-  // return {
-  //   type: SET_INFO,
-  //   message,
-  // };
+  const { message } = error;
+
+  return {
+    type: SET_INFO,
+    message,
+  };
 }

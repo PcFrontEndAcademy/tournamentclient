@@ -12,6 +12,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import TournamentsPage from '../TournamentsPage/Loadable';
+import GroupsPage from '../GroupsPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
@@ -20,6 +22,8 @@ export default function App() {
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/tournaments" component={TournamentsPage} />
+        <Route exact path="/groups" component={GroupsPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
