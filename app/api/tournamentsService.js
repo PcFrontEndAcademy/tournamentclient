@@ -5,7 +5,7 @@ export function get() {
   return api.GET(ENDPOINTS.TOURNAMENT);
 }
 
-export function save(tournament) {
+export function create(tournament) {
   return api.POST(ENDPOINTS.TOURNAMENT, tournament);
 }
 
