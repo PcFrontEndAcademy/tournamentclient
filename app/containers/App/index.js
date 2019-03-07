@@ -19,11 +19,11 @@ import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
+    <div style={{ padding: '1% 15%', color: 'white' }}>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/tournaments" component={TournamentsPage} />
-        <Route exact path="/groups" component={GroupsPage} />
+        <Route exact path="/:tournamentid/groups" component={GroupsPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

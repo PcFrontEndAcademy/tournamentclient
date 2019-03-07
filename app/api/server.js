@@ -2,7 +2,7 @@ import axios from 'axios';
 import CONFIG from './config';
 import { SET_INFO } from '../containers/InfoProvider/constants';
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 export function GET(path, params = null, headers = null) {
   return axios.get(`${CONFIG.API_URL}${path}`, { params, headers });

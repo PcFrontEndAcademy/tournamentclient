@@ -7,8 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
@@ -16,30 +14,44 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectTournamentsPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import { getTournaments } from './actions';
+import Tournaments from '../../components/lists/tournaments';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TournamentsPage extends React.Component {
+  componentDidMount() {
+    this.props.get();
+  }
+
+  groupsRedirect = tournamentId => {
+    this.props.history.push(`/${tournamentId}/groups`);
+  };
+
   render() {
+    const { tournaments } = this.props;
     return (
       <div>
-        <FormattedMessage {...messages.header} />
+        <h1>Tournaments</h1>
+        <Tournaments
+          tournaments={tournaments}
+          groupsRedirect={this.groupsRedirect}
+        />
       </div>
     );
   }
 }
 
 TournamentsPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  tournaments: PropTypes.array,
+  get: PropTypes.func,
+  history: PropTypes.any,
 };
 
-const mapStateToProps = createStructuredSelector({
-  tournamentsPage: makeSelectTournamentsPage(),
-});
+const mapStateToProps = makeSelectTournamentsPage();
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    get: () => dispatch(getTournaments()),
   };
 }
 

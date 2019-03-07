@@ -5,14 +5,16 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import { SET_TOURNAMENTS } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+  tournaments: [],
+});
 
 function tournamentsPageReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case SET_TOURNAMENTS:
+      return state.set('tournaments', action.tournaments);
     default:
       return state;
   }

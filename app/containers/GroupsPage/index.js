@@ -5,9 +5,8 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -16,22 +15,19 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectGroupsPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GroupsPage extends React.Component {
   render() {
     return (
       <div>
-        <FormattedMessage {...messages.header} />
+        <h1>Groups</h1>
       </div>
     );
   }
 }
 
-GroupsPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+GroupsPage.propTypes = {};
 
 const mapStateToProps = createStructuredSelector({
   groupsPage: makeSelectGroupsPage(),
