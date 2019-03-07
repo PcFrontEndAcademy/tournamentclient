@@ -23,7 +23,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/tournaments" component={TournamentsPage} />
-        <Route exact path="/:tournamentid/groups" component={GroupsPage} />
+        <Route exact path="/:tournamentId/groups" component={GroupsPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

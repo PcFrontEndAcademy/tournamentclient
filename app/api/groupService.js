@@ -1,8 +1,8 @@
 import * as api from './server';
 import ENDPOINTS from './endpoint';
 
-export function get() {
-  return api.GET(ENDPOINTS.GROUP.BASE);
+export function get(tournamentid) {
+  return api.GET(ENDPOINTS.GROUP.BASE, { tournamentid });
 }
 
 export function create(group) {

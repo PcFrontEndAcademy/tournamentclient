@@ -1,6 +1,18 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
+import { GET_GROUPS, SET_GROUPS } from './constants';
+import * as service from '../../api/groupService';
+import { callAction } from '../App/saga';
 
-// Individual exports for testing
-export default function* groupsPageSaga() {
-  // See example in containers/HomePage/saga.js
+function* get(action) {
+  // eslint-disable-next-line func-names
+  yield callAction([service.get, action.tournamentId], function*(response) {
+    yield put({
+      type: SET_GROUPS,
+      groups: response.data,
+    });
+  });
+}
+
+export default function*() {
+  yield takeEvery(GET_GROUPS, get);
 }
