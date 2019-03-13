@@ -14,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
-function Group({ items, excludeKeys }) {
+function Base({ items, excludeKeys }) {
   let keys = (items.length > 0 && Object.keys(items[0])) || [];
   keys = keys.filter(key => excludeKeys.indexOf(key) === -1);
   return (
@@ -41,14 +41,14 @@ function Group({ items, excludeKeys }) {
   );
 }
 
-Group.defaultProps = {
+Base.defaultProps = {
   items: [],
   excludeKeys: [],
 };
 
-Group.propTypes = {
+Base.propTypes = {
   items: PropTypes.array,
   excludeKeys: PropTypes.array,
 };
 
-export default Group;
+export default Base;

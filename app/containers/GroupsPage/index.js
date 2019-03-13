@@ -17,7 +17,7 @@ import makeSelect from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getGroups } from './actions';
-import Group from '../../components/lists/Group';
+import BaseList from '../../components/lists/Base';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GroupsPage extends React.Component {
@@ -35,11 +35,12 @@ export class GroupsPage extends React.Component {
           <div key={group._id}>
             <h2>
               {group.name}
+              <br />
               <Button color="primary" variant="contained">
                 Add player
               </Button>
             </h2>
-            <Group items={group.participants} excludeKeys={['_id']} />
+            <BaseList items={group.participants} excludeKeys={['_id']} />
           </div>
         ))}
       </div>
