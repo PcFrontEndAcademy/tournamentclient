@@ -4,7 +4,11 @@
  *
  */
 
-import { GET_TOURNAMENTS, SET_TOURNAMENTS } from './constants';
+import {
+  GET_TOURNAMENTS,
+  SET_TOURNAMENTS,
+  CREATE_TOURNAMENT,
+} from './constants';
 
 export function getTournaments() {
   return {
@@ -16,5 +20,12 @@ export function setTournaments(tournaments) {
   return {
     type: SET_TOURNAMENTS,
     tournaments,
+  };
+}
+
+export function createTournament(tournament) {
+  return {
+    type: CREATE_TOURNAMENT,
+    tournament,
   };
 }

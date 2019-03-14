@@ -11,11 +11,14 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 import makeSelectTournamentsPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getTournaments } from './actions';
+import { getTournaments, createTournament } from './actions';
 import Tournaments from '../../components/lists/tournaments';
+import DialogForm from '../../components/Dialog/dialogForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TournamentsPage extends React.Component {
@@ -27,11 +30,33 @@ export class TournamentsPage extends React.Component {
     this.props.history.push(`/${tournamentId}/groups`);
   };
 
+  addTournament = tournament => {
+    this.props.createTournament(tournament);
+  };
+
   render() {
     const { tournaments } = this.props;
     return (
       <div>
         <h1>Tournaments</h1>
+        <DialogForm
+          buttonTitle="Add new"
+          handleSubmit={this.addTournament}
+          fields={[
+            <TextField name="name" fullWidth label="Name" />,
+            <Select
+              fullWidth
+              native
+              inputProps={{
+                name: 'type',
+              }}
+            >
+              <option value="" />
+              <option value="Football">Football</option>
+              <option value="TableTennis">Table Tennis</option>
+            </Select>,
+          ]}
+        />
         <Tournaments
           tournaments={tournaments}
           groupsRedirect={this.groupsRedirect}
@@ -45,6 +70,7 @@ TournamentsPage.propTypes = {
   tournaments: PropTypes.array,
   get: PropTypes.func,
   history: PropTypes.any,
+  createTournament: PropTypes.func,
 };
 
 const mapStateToProps = makeSelectTournamentsPage();
@@ -52,6 +78,7 @@ const mapStateToProps = makeSelectTournamentsPage();
 function mapDispatchToProps(dispatch) {
   return {
     get: () => dispatch(getTournaments()),
+    createTournament: tournament => dispatch(createTournament(tournament)),
   };
 }
 

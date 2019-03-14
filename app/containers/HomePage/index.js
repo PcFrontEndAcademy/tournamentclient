@@ -10,16 +10,17 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
   render() {
     return (
       <div>
-        <FormattedMessage {...messages.header} />
-        <h3>Erniukas</h3>
+        <h1>HOME</h1>
+        <Link to="/participants">Participants</Link>
+        <br />
+        <Link to="/tournaments">Tournaments</Link>
       </div>
     );
   }

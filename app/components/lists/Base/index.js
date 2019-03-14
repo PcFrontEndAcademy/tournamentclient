@@ -22,14 +22,16 @@ function Base({ items, excludeKeys }) {
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>Nr.</TableCell>
             {keys.map(key => (
               <TableCell>{key}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map(row => (
+          {items.map((row, index) => (
             <TableRow hover key={row._id}>
+              <TableCell>{index + 1}</TableCell>
               {keys.map(key => (
                 <TableCell>{row[key]}</TableCell>
               ))}
