@@ -13,11 +13,13 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import makeSelect from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getGroups } from './actions';
+import { getGroups, createGroup } from './actions';
 import BaseList from '../../components/lists/Base';
+import DialogForm from '../../components/Dialog/dialogForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GroupsPage extends React.Component {
@@ -26,11 +28,21 @@ export class GroupsPage extends React.Component {
     this.props.get(tournamentId);
   }
 
+  addGroup = group => {
+    const { tournamentId } = this.props.match.params;
+    this.props.createGroup({ tournament: tournamentId, ...group });
+  };
+
   render() {
     const { groups } = this.props;
     return (
       <div>
         <h1>Groups</h1>
+        <DialogForm
+          buttonTitle="Add new"
+          handleSubmit={this.addGroup}
+          fields={[<TextField name="name" fullWidth label="Name" />]}
+        />
         {groups.map(group => (
           <div key={group._id}>
             <h2>
@@ -52,6 +64,7 @@ GroupsPage.propTypes = {
   get: PropTypes.func,
   match: PropTypes.any,
   groups: PropTypes.array,
+  createGroup: PropTypes.func,
 };
 
 const mapStateToProps = makeSelect();
@@ -59,6 +72,7 @@ const mapStateToProps = makeSelect();
 function mapDispatchToProps(dispatch) {
   return {
     get: tournamentId => dispatch(getGroups(tournamentId)),
+    createGroup: group => dispatch(createGroup(group)),
   };
 }
 
