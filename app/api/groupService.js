@@ -16,3 +16,10 @@ export function remove(id) {
 export function update(group) {
   return api.PUT(ENDPOINTS.GROUP.BASE, group);
 }
+
+export function addParticipant(groupId, participantId) {
+  return api.POST(ENDPOINTS.GROUP.ADD_PARTICIPANT, {
+    id: groupId,
+    participant: participantId,
+  });
+}

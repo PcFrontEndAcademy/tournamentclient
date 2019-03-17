@@ -4,7 +4,14 @@
  *
  */
 
-import { GET_GROUPS, SET_GROUPS, CREATE_GROUP } from './constants';
+import {
+  GET_GROUPS,
+  SET_GROUPS,
+  CREATE_GROUP,
+  GET_UNUSED_PARTICIPANTS,
+  SET_UNUSED_PARTICIPANTS,
+  ADD_PARTICIPANT_TO_GROUP,
+} from './constants';
 
 export function getGroups(tournamentId) {
   return {
@@ -24,5 +31,28 @@ export function createGroup(group) {
   return {
     type: CREATE_GROUP,
     group,
+  };
+}
+
+export function getUnusedParticipants(tournamentId) {
+  return {
+    type: GET_UNUSED_PARTICIPANTS,
+    tournamentId,
+  };
+}
+
+export function setUnusedParticipants(participants) {
+  return {
+    type: SET_UNUSED_PARTICIPANTS,
+    participants,
+  };
+}
+
+export function addParticipantToGroup(groupdId, participantId, tournamentId) {
+  return {
+    type: ADD_PARTICIPANT_TO_GROUP,
+    groupdId,
+    participantId,
+    tournamentId,
   };
 }

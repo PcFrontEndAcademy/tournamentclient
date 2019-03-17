@@ -14,18 +14,29 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Autocomplete from '../../components/fields/autocomplete';
 import makeSelect from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getGroups, createGroup } from './actions';
+import {
+  getGroups,
+  createGroup,
+  getUnusedParticipants,
+  addParticipantToGroup,
+} from './actions';
 import BaseList from '../../components/lists/Base';
 import DialogForm from '../../components/Dialog/dialogForm';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GroupsPage extends React.Component {
+  state = {
+    participantToAdd: null,
+  };
+
   componentDidMount() {
     const { tournamentId } = this.props.match.params;
     this.props.get(tournamentId);
+    this.props.getUnusedParticipants(tournamentId);
   }
 
   addGroup = group => {
@@ -33,8 +44,26 @@ export class GroupsPage extends React.Component {
     this.props.createGroup({ tournament: tournamentId, ...group });
   };
 
+  participantChanged = participant => {
+    this.setState({ participantToAdd: participant });
+  };
+
+  addParticipant = groupId => {
+    const { tournamentId } = this.props.match.params;
+    this.props.addParticipantToGroup(
+      groupId,
+      this.state.participantToAdd.value,
+      tournamentId,
+    );
+    this.setState({ participantToAdd: null });
+  };
+
   render() {
-    const { groups } = this.props;
+    const { groups, unusedParticipants } = this.props;
+    const options = unusedParticipants.map(participant => ({
+      value: participant._id,
+      label: participant.name,
+    }));
     return (
       <div>
         <h1>Groups</h1>
@@ -43,12 +72,23 @@ export class GroupsPage extends React.Component {
           handleSubmit={this.addGroup}
           fields={[<TextField name="name" fullWidth label="Name" />]}
         />
+        <Autocomplete
+          options={options}
+          placeholder="Participant"
+          onChange={this.participantChanged}
+          value={this.state.participantToAdd}
+        />
         {groups.map(group => (
           <div key={group._id}>
             <h2>
               {group.name}
               <br />
-              <Button color="primary" variant="contained">
+              <Button
+                disabled={this.state.participantToAdd === null}
+                color="primary"
+                variant="contained"
+                onClick={() => this.addParticipant(group._id)}
+              >
                 Add player
               </Button>
             </h2>
@@ -65,6 +105,9 @@ GroupsPage.propTypes = {
   match: PropTypes.any,
   groups: PropTypes.array,
   createGroup: PropTypes.func,
+  getUnusedParticipants: PropTypes.func,
+  unusedParticipants: PropTypes.array,
+  addParticipantToGroup: PropTypes.func,
 };
 
 const mapStateToProps = makeSelect();
@@ -73,6 +116,10 @@ function mapDispatchToProps(dispatch) {
   return {
     get: tournamentId => dispatch(getGroups(tournamentId)),
     createGroup: group => dispatch(createGroup(group)),
+    getUnusedParticipants: tournamentId =>
+      dispatch(getUnusedParticipants(tournamentId)),
+    addParticipantToGroup: (groupId, participantId, tournamentId) =>
+      dispatch(addParticipantToGroup(groupId, participantId, tournamentId)),
   };
 }
 

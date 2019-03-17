@@ -5,6 +5,10 @@ export function get() {
   return api.GET(ENDPOINTS.PARTICIPANT.BASE);
 }
 
+export function getUnused(tournamentid) {
+  return api.GET(ENDPOINTS.PARTICIPANT.GET_UNUSED, { tournamentid });
+}
+
 export function create(participant) {
   return api.POST(ENDPOINTS.PARTICIPANT.BASE, participant);
 }
