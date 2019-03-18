@@ -23,3 +23,9 @@ export function addParticipant(groupId, participantId) {
     participant: participantId,
   });
 }
+
+export function start(tournamentid) {
+  return api.POST(ENDPOINTS.GROUP.START, {
+    tournamentid,
+  });
+}

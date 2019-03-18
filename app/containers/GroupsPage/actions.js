@@ -11,6 +11,7 @@ import {
   GET_UNUSED_PARTICIPANTS,
   SET_UNUSED_PARTICIPANTS,
   ADD_PARTICIPANT_TO_GROUP,
+  START_GROUP_STAGE,
 } from './constants';
 
 export function getGroups(tournamentId) {
@@ -53,6 +54,13 @@ export function addParticipantToGroup(groupdId, participantId, tournamentId) {
     type: ADD_PARTICIPANT_TO_GROUP,
     groupdId,
     participantId,
+    tournamentId,
+  };
+}
+
+export function startGroupStage(tournamentId) {
+  return {
+    type: START_GROUP_STAGE,
     tournamentId,
   };
 }

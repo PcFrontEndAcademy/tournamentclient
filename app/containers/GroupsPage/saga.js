@@ -7,6 +7,7 @@ import {
   GET_UNUSED_PARTICIPANTS,
   SET_UNUSED_PARTICIPANTS,
   ADD_PARTICIPANT_TO_GROUP,
+  START_GROUP_STAGE,
 } from './constants';
 import * as service from '../../api/groupService';
 import * as participantService from '../../api/participantService';
@@ -67,9 +68,23 @@ function* addParticipant(action) {
   );
 }
 
+function* start(action) {
+  yield callAction([service.start, action.tournamentId], function*() {
+    yield put({
+      type: SET_INFO,
+      message: 'Group stage started!!!',
+    });
+    yield put({
+      type: GET_GROUPS,
+      tournamentId: action.tournamentId,
+    });
+  });
+}
+
 export default function*() {
   yield takeEvery(GET_GROUPS, get);
   yield takeEvery(CREATE_GROUP, create);
   yield takeEvery(GET_UNUSED_PARTICIPANTS, getUnusedParticipants);
   yield takeEvery(ADD_PARTICIPANT_TO_GROUP, addParticipant);
+  yield takeEvery(START_GROUP_STAGE, start);
 }

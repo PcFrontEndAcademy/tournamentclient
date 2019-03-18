@@ -23,6 +23,7 @@ import {
   createGroup,
   getUnusedParticipants,
   addParticipantToGroup,
+  startGroupStage,
 } from './actions';
 import BaseList from '../../components/lists/Base';
 import DialogForm from '../../components/Dialog/dialogForm';
@@ -31,6 +32,8 @@ import DialogForm from '../../components/Dialog/dialogForm';
 export class GroupsPage extends React.Component {
   state = {
     participantToAdd: null,
+    standings: true,
+    matches: false,
   };
 
   componentDidMount() {
@@ -58,41 +61,96 @@ export class GroupsPage extends React.Component {
     this.setState({ participantToAdd: null });
   };
 
+  startGroupStage = () => {
+    const { tournamentId } = this.props.match.params;
+    this.props.startGroupStage(tournamentId);
+  };
+
+  switchToStandings = () => {
+    this.setState({ matches: false, standings: true });
+  };
+
+  switchToMatches = () => {
+    this.setState({ matches: true, standings: false });
+  };
+
   render() {
     const { groups, unusedParticipants } = this.props;
     const options = unusedParticipants.map(participant => ({
       value: participant._id,
       label: participant.name,
     }));
+
+    const isGroupStageStarted =
+      groups && groups.length > 0 && groups[0].results.length > 0;
     return (
       <div>
-        <h1>Groups</h1>
-        <DialogForm
-          buttonTitle="Add new"
-          handleSubmit={this.addGroup}
-          fields={[<TextField name="name" fullWidth label="Name" />]}
-        />
-        <Autocomplete
-          options={options}
-          placeholder="Participant"
-          onChange={this.participantChanged}
-          value={this.state.participantToAdd}
-        />
+        <h1>
+          Groups{' '}
+          {!isGroupStageStarted && (
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={this.startGroupStage}
+            >
+              Start group stage
+            </Button>
+          )}
+          {isGroupStageStarted && (
+            <Button
+              color="primary"
+              variant="contained"
+              disabled={this.state.standings}
+              onClick={this.switchToStandings}
+            >
+              Standings
+            </Button>
+          )}
+          {isGroupStageStarted && (
+            <Button
+              color="primary"
+              variant="contained"
+              disabled={this.state.matches}
+              onClick={this.switchToMatches}
+            >
+              Matches
+            </Button>
+          )}
+        </h1>
+        {!isGroupStageStarted && (
+          <DialogForm
+            buttonTitle="Add new"
+            handleSubmit={this.addGroup}
+            fields={[<TextField name="name" fullWidth label="Name" />]}
+          />
+        )}
+        {!isGroupStageStarted && (
+          <Autocomplete
+            options={options}
+            placeholder="Participant"
+            onChange={this.participantChanged}
+            value={this.state.participantToAdd}
+          />
+        )}
         {groups.map(group => (
           <div key={group._id}>
             <h2>
               {group.name}
               <br />
-              <Button
-                disabled={this.state.participantToAdd === null}
-                color="primary"
-                variant="contained"
-                onClick={() => this.addParticipant(group._id)}
-              >
-                Add player
-              </Button>
+              {!isGroupStageStarted && (
+                <Button
+                  disabled={this.state.participantToAdd === null}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => this.addParticipant(group._id)}
+                >
+                  Add player
+                </Button>
+              )}
             </h2>
-            <BaseList items={group.participants} excludeKeys={['_id']} />
+            {this.state.standings && (
+              <BaseList items={group.participants} excludeKeys={['_id']} />
+            )}
           </div>
         ))}
       </div>
@@ -108,6 +166,7 @@ GroupsPage.propTypes = {
   getUnusedParticipants: PropTypes.func,
   unusedParticipants: PropTypes.array,
   addParticipantToGroup: PropTypes.func,
+  startGroupStage: PropTypes.func,
 };
 
 const mapStateToProps = makeSelect();
@@ -120,6 +179,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(getUnusedParticipants(tournamentId)),
     addParticipantToGroup: (groupId, participantId, tournamentId) =>
       dispatch(addParticipantToGroup(groupId, participantId, tournamentId)),
+    startGroupStage: tournamentId => dispatch(startGroupStage(tournamentId)),
   };
 }
 
