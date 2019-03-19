@@ -12,4 +12,7 @@ export default {
     BASE: '/participants',
     GET_UNUSED: '/participants/getUnusedInTournament',
   },
+  USER: {
+    LOGIN: '/user/login',
+  },
 };
