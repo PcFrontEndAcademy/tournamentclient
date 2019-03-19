@@ -35,7 +35,7 @@ export default class DialogForm extends React.Component {
             const children = React.cloneElement(item, {
               onChange: this.handleChange,
             });
-            return <div>{children}</div>;
+            return <div key={item.props.name}>{children}</div>;
           })}
         </form>
       </Dialog>

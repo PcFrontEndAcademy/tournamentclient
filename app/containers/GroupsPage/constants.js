@@ -14,3 +14,5 @@ export const ADD_PARTICIPANT_TO_GROUP =
   'app/GroupsPage/ADD_PARTICIPANT_TO_GROUP';
 
 export const START_GROUP_STAGE = 'app/GroupsPage/START_GROUP_STAGE';
+
+export const ADD_RESULT = 'app/GroupsPage/ADD_RESULT';

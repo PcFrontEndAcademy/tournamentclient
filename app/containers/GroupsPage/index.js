@@ -14,9 +14,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Autocomplete from '../../components/fields/autocomplete';
 import makeSelect from './selectors';
 import reducer from './reducer';
@@ -27,10 +24,12 @@ import {
   getUnusedParticipants,
   addParticipantToGroup,
   startGroupStage,
+  addResult,
 } from './actions';
 import BaseList from '../../components/lists/Base';
 import DialogForm from '../../components/Dialog/dialogForm';
 import { buildFullName } from '../../helpers/textManagment';
+import VersusCard from '../../components/VersusCard';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GroupsPage extends React.Component {
@@ -88,9 +87,9 @@ export class GroupsPage extends React.Component {
     this.setState({ finished: true, pending: false });
   };
 
-  saveScore = () => {
+  saveScore = (homeScore, awayScore, groupId, resultId) => {
     const { tournamentId } = this.props.match.params;
-    this.props.get(tournamentId);
+    this.props.addResult(tournamentId, groupId, resultId, homeScore, awayScore);
   };
 
   render() {
@@ -99,7 +98,6 @@ export class GroupsPage extends React.Component {
       value: participant._id,
       label: participant.name,
     }));
-
     const isGroupStageStarted =
       groups && groups.length > 0 && groups[0].results.length > 0;
     return (
@@ -118,7 +116,7 @@ export class GroupsPage extends React.Component {
           {isGroupStageStarted && (
             <Button
               color="primary"
-              variant={this.state.standings && 'contained'}
+              variant={this.state.standings ? 'contained' : 'text'}
               onClick={this.switchToStandings}
             >
               Standings
@@ -127,7 +125,7 @@ export class GroupsPage extends React.Component {
           {isGroupStageStarted && (
             <Button
               color="primary"
-              variant={this.state.matches && 'contained'}
+              variant={this.state.matches ? 'contained' : 'text'}
               onClick={this.switchToMatches}
             >
               Matches
@@ -166,14 +164,18 @@ export class GroupsPage extends React.Component {
                   </Button>
                 )}
               </h2>
-              <BaseList items={group.participants} excludeKeys={['_id']} />
+              <BaseList
+                items={group.participants}
+                excludeKeys={['_id']}
+                keyProperty="_id"
+              />
             </div>
           ))}
         {this.state.matches && (
           <div>
             <Button
               color="primary"
-              variant={this.state.pending && 'contained'}
+              variant={this.state.pending ? 'contained' : 'text'}
               onClick={this.switchToPending}
             >
               Pending
@@ -181,7 +183,7 @@ export class GroupsPage extends React.Component {
             <Button
               color="primary"
               onClick={this.switchToFinished}
-              variant={this.state.finished && 'contained'}
+              variant={this.state.finished ? 'contained' : 'text'}
             >
               Finished
             </Button>
@@ -189,34 +191,37 @@ export class GroupsPage extends React.Component {
             {this.state.pending &&
               groups.map(group =>
                 group.results
-                  .filter(result => result.awayScore == null)
+                  .filter(result => result.homeScore == null)
                   .map(result => (
-                    <Card
-                      style={{
-                        width: '200px',
-                        color: 'black',
-                        margin: '10px',
-                        display: 'inline-block',
-                      }}
-                    >
-                      <CardContent>
-                        {buildFullName(result.home.name)} <hr />
-                        {buildFullName(result.away.name)}
-                      </CardContent>
-                      <CardActions>
-                        <Button
-                          onClick={this.saveScore}
-                          color="primary"
-                          variant="contained"
-                        >
-                          Save score
-                        </Button>
-                      </CardActions>
-                    </Card>
+                    <VersusCard
+                      key={result._id}
+                      home={buildFullName(result.home.name)}
+                      away={buildFullName(result.away.name)}
+                      saveScore={(homeScore, awayScore) =>
+                        this.saveScore(
+                          homeScore,
+                          awayScore,
+                          group._id,
+                          result._id,
+                        )
+                      }
+                    />
                   )),
               )}
             {this.state.finished &&
-              groups.map(group => <div>{group.name}</div>)}
+              groups.map(group =>
+                group.results
+                  .filter(result => result.homeScore != null)
+                  .map(result => (
+                    <VersusCard
+                      key={result._id}
+                      home={buildFullName(result.home.name)}
+                      away={buildFullName(result.away.name)}
+                      homeScore={result.homeScore}
+                      awayScore={result.awayScore}
+                    />
+                  )),
+              )}
           </div>
         )}
       </div>
@@ -233,6 +238,7 @@ GroupsPage.propTypes = {
   unusedParticipants: PropTypes.array,
   addParticipantToGroup: PropTypes.func,
   startGroupStage: PropTypes.func,
+  addResult: PropTypes.func,
 };
 
 const mapStateToProps = makeSelect();
@@ -246,6 +252,10 @@ function mapDispatchToProps(dispatch) {
     addParticipantToGroup: (groupId, participantId, tournamentId) =>
       dispatch(addParticipantToGroup(groupId, participantId, tournamentId)),
     startGroupStage: tournamentId => dispatch(startGroupStage(tournamentId)),
+    addResult: (tournamentId, groupId, resultId, homeScore, awayScore) =>
+      dispatch(
+        addResult(tournamentId, groupId, resultId, homeScore, awayScore),
+      ),
   };
 }
 

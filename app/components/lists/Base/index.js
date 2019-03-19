@@ -14,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
-function Base({ items, excludeKeys }) {
+function Base({ items, excludeKeys, keyProperty }) {
   let keys = (items.length > 0 && Object.keys(items[0])) || [];
   keys = keys.filter(key => excludeKeys.indexOf(key) === -1);
   return (
@@ -24,16 +24,16 @@ function Base({ items, excludeKeys }) {
           <TableRow>
             <TableCell>Nr.</TableCell>
             {keys.map(key => (
-              <TableCell>{key}</TableCell>
+              <TableCell key={key}>{key}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {items.map((row, index) => (
-            <TableRow hover key={row._id}>
+            <TableRow hover key={row[keyProperty]}>
               <TableCell>{index + 1}</TableCell>
               {keys.map(key => (
-                <TableCell>{row[key]}</TableCell>
+                <TableCell key={key}>{row[key]}</TableCell>
               ))}
             </TableRow>
           ))}
@@ -51,6 +51,7 @@ Base.defaultProps = {
 Base.propTypes = {
   items: PropTypes.array,
   excludeKeys: PropTypes.array,
+  keyProperty: PropTypes.string,
 };
 
 export default Base;

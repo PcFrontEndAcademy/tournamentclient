@@ -24,6 +24,15 @@ export function addParticipant(groupId, participantId) {
   });
 }
 
+export function addResult(groupId, resultId, homeScore, awayScore) {
+  return api.POST(ENDPOINTS.GROUP.ADD_RESULT, {
+    groupId,
+    resultId,
+    homeScore,
+    awayScore,
+  });
+}
+
 export function start(tournamentid) {
   return api.POST(ENDPOINTS.GROUP.START, {
     tournamentid,
