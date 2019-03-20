@@ -30,6 +30,7 @@ import BaseList from '../../components/lists/Base';
 import DialogForm from '../../components/Dialog/dialogForm';
 import { buildFullName } from '../../helpers/textManagment';
 import VersusCard from '../../components/VersusCard';
+import CONFIG from '../../api/config';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GroupsPage extends React.Component {
@@ -100,19 +101,22 @@ export class GroupsPage extends React.Component {
     }));
     const isGroupStageStarted =
       groups && groups.length > 0 && groups[0].results.length > 0;
+
+    const isLoggedInUser = CONFIG.GET_TOKEN();
     return (
       <div>
         <h1>
           Groups{' '}
-          {!isGroupStageStarted && (
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={this.startGroupStage}
-            >
-              Start group stage
-            </Button>
-          )}
+          {!isGroupStageStarted &&
+            (isLoggedInUser && (
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={this.startGroupStage}
+              >
+                Start group stage
+              </Button>
+            ))}
           {isGroupStageStarted && (
             <Button
               color="primary"
@@ -132,37 +136,40 @@ export class GroupsPage extends React.Component {
             </Button>
           )}
         </h1>
-        {!isGroupStageStarted && (
-          <DialogForm
-            buttonTitle="Add new"
-            handleSubmit={this.addGroup}
-            fields={[<TextField name="name" fullWidth label="Name" />]}
-          />
-        )}
-        {!isGroupStageStarted && (
-          <Autocomplete
-            options={options}
-            placeholder="Participant"
-            onChange={this.participantChanged}
-            value={this.state.participantToAdd}
-          />
-        )}
+        {!isGroupStageStarted &&
+          (isLoggedInUser && (
+            <DialogForm
+              buttonTitle="Add new"
+              handleSubmit={this.addGroup}
+              fields={[<TextField name="name" fullWidth label="Name" />]}
+            />
+          ))}
+        {!isGroupStageStarted &&
+          (isLoggedInUser && (
+            <Autocomplete
+              options={options}
+              placeholder="Participant"
+              onChange={this.participantChanged}
+              value={this.state.participantToAdd}
+            />
+          ))}
         {this.state.standings &&
           groups.map(group => (
             <div key={group._id}>
               <h2>
                 {group.name}
                 <br />
-                {!isGroupStageStarted && (
-                  <Button
-                    disabled={this.state.participantToAdd === null}
-                    color="primary"
-                    variant="contained"
-                    onClick={() => this.addParticipant(group._id)}
-                  >
-                    Add player
-                  </Button>
-                )}
+                {!isGroupStageStarted &&
+                  (isLoggedInUser && (
+                    <Button
+                      disabled={this.state.participantToAdd === null}
+                      color="primary"
+                      variant="contained"
+                      onClick={() => this.addParticipant(group._id)}
+                    >
+                      Add player
+                    </Button>
+                  ))}
               </h2>
               <BaseList
                 items={group.participants}
@@ -197,6 +204,7 @@ export class GroupsPage extends React.Component {
                       key={result._id}
                       home={buildFullName(result.home.name)}
                       away={buildFullName(result.away.name)}
+                      enableEdit={isLoggedInUser != null}
                       saveScore={(homeScore, awayScore) =>
                         this.saveScore(
                           homeScore,

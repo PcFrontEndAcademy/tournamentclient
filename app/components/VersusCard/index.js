@@ -47,9 +47,8 @@ class VersusCard extends React.Component {
   };
 
   render() {
-    const { away, home, homeScore, awayScore } = this.props;
+    const { away, home, homeScore, awayScore, enableEdit } = this.props;
     const isMatchFinished = homeScore != null && awayScore != null;
-
     return (
       <Card
         style={{
@@ -64,36 +63,39 @@ class VersusCard extends React.Component {
           {isMatchFinished && (
             <span style={{ ...scoreStyle, left: '-5px' }}>{homeScore}</span>
           )}
-          {!isMatchFinished && (
-            <TextField
-              onChange={this.handleChange}
-              type="number"
-              name="homeScore"
-              style={inputStyle}
-            />
-          )}
+          {!isMatchFinished &&
+            (enableEdit && (
+              <TextField
+                onChange={this.handleChange}
+                type="number"
+                name="homeScore"
+                style={inputStyle}
+              />
+            ))}
           <hr />
           {away}
           {isMatchFinished && <span style={scoreStyle}>{awayScore}</span>}
-          {!isMatchFinished && (
-            <TextField
-              onChange={this.handleChange}
-              name="awayScore"
-              type="number"
-              style={inputStyle}
-            />
-          )}
+          {!isMatchFinished &&
+            (enableEdit && (
+              <TextField
+                onChange={this.handleChange}
+                name="awayScore"
+                type="number"
+                style={inputStyle}
+              />
+            ))}
         </CardContent>
         <CardActions>
-          {!isMatchFinished && (
-            <Button
-              onClick={this.saveScore}
-              color="primary"
-              variant="contained"
-            >
-              Save score
-            </Button>
-          )}
+          {!isMatchFinished &&
+            (enableEdit && (
+              <Button
+                onClick={this.saveScore}
+                color="primary"
+                variant="contained"
+              >
+                Save score
+              </Button>
+            ))}
         </CardActions>
       </Card>
     );
@@ -106,6 +108,7 @@ VersusCard.propTypes = {
   saveScore: PropTypes.func,
   homeScore: PropTypes.number,
   awayScore: PropTypes.number,
+  enableEdit: PropTypes.bool,
 };
 
 export default VersusCard;

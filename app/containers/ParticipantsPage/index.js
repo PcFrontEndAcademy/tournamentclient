@@ -18,6 +18,7 @@ import saga from './saga';
 import { getParticipants, createParticipant } from './actions';
 import BaseList from '../../components/lists/Base';
 import Dialog from '../../components/Dialog';
+import Config from '../../api/config';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ParticipantsPage extends React.Component {
@@ -47,23 +48,26 @@ export class ParticipantsPage extends React.Component {
 
   render() {
     const { participants } = this.props;
+    const isLoggedInUser = Config.GET_TOKEN();
     return (
       <div>
         <h1>Participants</h1>
-        <Dialog
-          buttonTitle="Add new"
-          handleSubmit={this.addPlayer}
-          beforeClose={this.clearState}
-        >
-          <div>
-            <TextField
-              onChange={this.handleChange}
-              fullWidth
-              label="Player name"
-              name="name"
-            />
-          </div>
-        </Dialog>
+        {isLoggedInUser && (
+          <Dialog
+            buttonTitle="Add new"
+            handleSubmit={this.addPlayer}
+            beforeClose={this.clearState}
+          >
+            <div>
+              <TextField
+                onChange={this.handleChange}
+                fullWidth
+                label="Player name"
+                name="name"
+              />
+            </div>
+          </Dialog>
+        )}
         <br />
         <BaseList
           items={participants}
