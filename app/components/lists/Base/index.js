@@ -30,7 +30,13 @@ function Base({ items, excludeKeys, keyProperty }) {
         </TableHead>
         <TableBody>
           {items.map((row, index) => (
-            <TableRow hover key={row[keyProperty]}>
+            <TableRow
+              style={{
+                backgroundColor: index < 3 ? '#aed581' : index < 5 && '#ffe082',
+              }}
+              hover
+              key={row[keyProperty]}
+            >
               <TableCell>{index + 1}</TableCell>
               {keys.map(key => (
                 <TableCell key={key}>{row[key]}</TableCell>
