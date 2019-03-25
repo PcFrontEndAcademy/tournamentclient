@@ -34,7 +34,6 @@ function Base({ items, excludeKeys, keyProperty }) {
               style={{
                 backgroundColor: index < 3 ? '#aed581' : index < 5 && '#ffe082',
               }}
-              hover
               key={row[keyProperty]}
             >
               <TableCell>{index + 1}</TableCell>
