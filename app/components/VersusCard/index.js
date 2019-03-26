@@ -54,11 +54,9 @@ class VersusCard extends React.Component {
         style={{
           width: '200px',
           color: 'black',
-          margin: '10px',
-          display: 'inline-block',
         }}
       >
-        <CardContent>
+        <CardContent style={{ padding: '16px' }}>
           {home}
           {isMatchFinished && (
             <span style={{ ...scoreStyle, left: '-5px' }}>{homeScore}</span>
@@ -85,9 +83,10 @@ class VersusCard extends React.Component {
               />
             ))}
         </CardContent>
-        <CardActions>
-          {!isMatchFinished &&
-            (enableEdit && (
+
+        {!isMatchFinished &&
+          (enableEdit && (
+            <CardActions>
               <Button
                 onClick={this.saveScore}
                 color="primary"
@@ -95,8 +94,8 @@ class VersusCard extends React.Component {
               >
                 Save score
               </Button>
-            ))}
-        </CardActions>
+            </CardActions>
+          ))}
       </Card>
     );
   }

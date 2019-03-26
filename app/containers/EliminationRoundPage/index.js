@@ -16,106 +16,61 @@ import makeSelectEliminationRoundPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import VersusCard from '../../components/VersusCard';
+import { getEliminationRoundNumber } from '../../helpers/numberManagement';
 
 /* eslint-disable react/prefer-stateless-function */
 export class EliminationRoundPage extends React.Component {
   render() {
     const gridContainer = {
-      display: 'grid',
-      gridTemplateColumns: 'auto auto auto auto auto auto',
+      // backgroundColor: 'white',
+      height: '95vh',
+      position: 'relative',
+    };
+    const participants = 10;
+
+    const content = () => {
+      const rounds = [];
+      let counter = 0;
+      for (
+        let round = getEliminationRoundNumber(participants);
+        round > 0;
+        round -= 1
+      ) {
+        let cardCount = 2 ** round / 2;
+        if (cardCount * 2 > participants) {
+          cardCount = participants - 2 ** (round - 1);
+        }
+
+        const containerHeight = window.innerHeight * 0.95;
+        const cardHeight = 98;
+        const totalCardHeight = cardCount * cardHeight;
+        const spacesCount = cardCount + 1;
+        const spaceHeight = (containerHeight - totalCardHeight) / spacesCount;
+
+        for (let card = 1; card <= cardCount; card += 1) {
+          rounds.push(
+            <div
+              key={`${round} ${card}`}
+              style={{
+                position: 'absolute',
+                top: spaceHeight * card + cardHeight * (card - 1),
+                left: 250 * counter,
+                height: '66px',
+              }}
+            >
+              <VersusCard away="erniukas" home="berniukas" />
+            </div>,
+          );
+        }
+        counter += 1;
+      }
+      return rounds;
     };
 
-    const gridItem = {
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      border: '1px solid rgba(0, 0, 0, 0.8)',
-      padding: '20px',
-      fontSize: '30px',
-      textAlign: 'center',
-    };
-    // const count = 10;
     return (
       <div>
-        <h1>Elimination Round</h1>
-        <div style={gridContainer}>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-          <div style={gridItem}>
-            <VersusCard />
-          </div>
-        </div>
+        {/* <h1>Elimination Round</h1> */}
+        <div style={gridContainer}>{content()}</div>
       </div>
     );
   }

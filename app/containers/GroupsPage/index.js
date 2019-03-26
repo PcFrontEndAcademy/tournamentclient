@@ -200,20 +200,22 @@ export class GroupsPage extends React.Component {
                 group.results
                   .filter(result => result.homeScore == null)
                   .map(result => (
-                    <VersusCard
-                      key={result._id}
-                      home={buildFullName(result.home.name)}
-                      away={buildFullName(result.away.name)}
-                      enableEdit={isLoggedInUser != null}
-                      saveScore={(homeScore, awayScore) =>
-                        this.saveScore(
-                          homeScore,
-                          awayScore,
-                          group._id,
-                          result._id,
-                        )
-                      }
-                    />
+                    <div style={{ margin: '10px', display: 'inline-block' }}>
+                      <VersusCard
+                        key={result._id}
+                        home={buildFullName(result.home.name)}
+                        away={buildFullName(result.away.name)}
+                        enableEdit={isLoggedInUser != null}
+                        saveScore={(homeScore, awayScore) =>
+                          this.saveScore(
+                            homeScore,
+                            awayScore,
+                            group._id,
+                            result._id,
+                          )
+                        }
+                      />
+                    </div>
                   )),
               )}
             {this.state.finished &&
@@ -221,13 +223,15 @@ export class GroupsPage extends React.Component {
                 group.results
                   .filter(result => result.homeScore != null)
                   .map(result => (
-                    <VersusCard
-                      key={result._id}
-                      home={buildFullName(result.home.name)}
-                      away={buildFullName(result.away.name)}
-                      homeScore={result.homeScore}
-                      awayScore={result.awayScore}
-                    />
+                    <div style={{ margin: '10px', display: 'inline-block' }}>
+                      <VersusCard
+                        key={result._id}
+                        home={buildFullName(result.home.name)}
+                        away={buildFullName(result.away.name)}
+                        homeScore={result.homeScore}
+                        awayScore={result.awayScore}
+                      />
+                    </div>
                   )),
               )}
           </div>
