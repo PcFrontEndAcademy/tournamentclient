@@ -26,11 +26,15 @@ export class EliminationRoundPage extends React.Component {
       height: '95vh',
       position: 'relative',
     };
-    const participants = 10;
+    const participants = 8;
+    // const groups = [0, 1];
+    // const groupLetters = ['A', 'B'];
 
-    const content = () => {
-      const rounds = [];
+    const drawBracket = () => {
+      let participantsLeft = [...Array(10).keys()];
+      const branches = [];
       let counter = 0;
+      // const currentGroupIndex = 0;
       for (
         let round = getEliminationRoundNumber(participants);
         round > 0;
@@ -47,8 +51,22 @@ export class EliminationRoundPage extends React.Component {
         const spacesCount = cardCount + 1;
         const spaceHeight = (containerHeight - totalCardHeight) / spacesCount;
 
+        // const currentGroup = groups[currentGroupIndex];
         for (let card = 1; card <= cardCount; card += 1) {
-          rounds.push(
+          const currentMatch = branches.length + 1;
+
+          let home;
+          let away;
+          if (participantsLeft.length !== 0) {
+            home = `A ${participantsLeft}`;
+            away = `B ${participants / 2}`;
+            participantsLeft -= 2;
+          } else {
+            home = `Winner of ${participants / 2}`;
+            away = `Winner of ${participants / 2}`;
+          }
+
+          branches.push(
             <div
               key={`${round} ${card}`}
               style={{
@@ -58,19 +76,19 @@ export class EliminationRoundPage extends React.Component {
                 height: '66px',
               }}
             >
-              <VersusCard away="erniukas" home="berniukas" />
+              <VersusCard away={away} home={home} matchNumber={currentMatch} />
             </div>,
           );
         }
         counter += 1;
       }
-      return rounds;
+      return branches;
     };
 
     return (
       <div>
         {/* <h1>Elimination Round</h1> */}
-        <div style={gridContainer}>{content()}</div>
+        <div style={gridContainer}>{drawBracket()}</div>
       </div>
     );
   }

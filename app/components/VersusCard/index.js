@@ -47,7 +47,14 @@ class VersusCard extends React.Component {
   };
 
   render() {
-    const { away, home, homeScore, awayScore, enableEdit } = this.props;
+    const {
+      away,
+      home,
+      homeScore,
+      awayScore,
+      enableEdit,
+      matchNumber,
+    } = this.props;
     const isMatchFinished = homeScore != null && awayScore != null;
     return (
       <Card
@@ -56,6 +63,18 @@ class VersusCard extends React.Component {
           color: 'black',
         }}
       >
+        {matchNumber && (
+          <span
+            style={{
+              float: 'right',
+              paddingRight: '8px',
+              fontSize: 'x-small',
+              color: 'grey',
+            }}
+          >
+            Game #{matchNumber}
+          </span>
+        )}
         <CardContent style={{ padding: '16px' }}>
           {home}
           {isMatchFinished && (
@@ -108,6 +127,7 @@ VersusCard.propTypes = {
   homeScore: PropTypes.number,
   awayScore: PropTypes.number,
   enableEdit: PropTypes.bool,
+  matchNumber: PropTypes.number,
 };
 
 export default VersusCard;
