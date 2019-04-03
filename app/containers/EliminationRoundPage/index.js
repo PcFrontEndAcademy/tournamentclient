@@ -12,83 +12,87 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import makeSelectEliminationRoundPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import VersusCard from '../../components/VersusCard';
-import { getEliminationRoundNumber } from '../../helpers/numberManagement';
+import Bracket from '../../components/Bracket';
 
 /* eslint-disable react/prefer-stateless-function */
 export class EliminationRoundPage extends React.Component {
+  state = {
+    tabValue: 0,
+    secondaryTabValue: 0,
+  };
+
+  handleTabChange = (event, tabValue) => {
+    this.setState({ tabValue });
+  };
+
+  handleSecondaryTabChange = (event, secondaryTabValue) => {
+    this.setState({ secondaryTabValue });
+  };
+
   render() {
-    const gridContainer = {
-      // backgroundColor: 'white',
-      height: '95vh',
-      position: 'relative',
-    };
-    const participants = 8;
-    // const groups = [0, 1];
-    // const groupLetters = ['A', 'B'];
-
-    const drawBracket = () => {
-      let participantsLeft = [...Array(10).keys()];
-      const branches = [];
-      let counter = 0;
-      // const currentGroupIndex = 0;
-      for (
-        let round = getEliminationRoundNumber(participants);
-        round > 0;
-        round -= 1
-      ) {
-        let cardCount = 2 ** round / 2;
-        if (cardCount * 2 > participants) {
-          cardCount = participants - 2 ** (round - 1);
-        }
-
-        const containerHeight = window.innerHeight * 0.95;
-        const cardHeight = 98;
-        const totalCardHeight = cardCount * cardHeight;
-        const spacesCount = cardCount + 1;
-        const spaceHeight = (containerHeight - totalCardHeight) / spacesCount;
-
-        // const currentGroup = groups[currentGroupIndex];
-        for (let card = 1; card <= cardCount; card += 1) {
-          const currentMatch = branches.length + 1;
-
-          let home;
-          let away;
-          if (participantsLeft.length !== 0) {
-            home = `A ${participantsLeft}`;
-            away = `B ${participants / 2}`;
-            participantsLeft -= 2;
-          } else {
-            home = `Winner of ${participants / 2}`;
-            away = `Winner of ${participants / 2}`;
-          }
-
-          branches.push(
-            <div
-              key={`${round} ${card}`}
-              style={{
-                position: 'absolute',
-                top: spaceHeight * card + cardHeight * (card - 1),
-                left: 250 * counter,
-                height: '66px',
-              }}
-            >
-              <VersusCard away={away} home={home} matchNumber={currentMatch} />
-            </div>,
-          );
-        }
-        counter += 1;
-      }
-      return branches;
-    };
-
     return (
       <div>
-        {/* <h1>Elimination Round</h1> */}
-        <div style={gridContainer}>{drawBracket()}</div>
+        <Tabs
+          value={this.state.tabValue}
+          indicatorColor="primary"
+          textColor="primary"
+          onChange={this.handleTabChange}
+          variant="fullWidth"
+        >
+          <Tab label="Elite Cup" />
+          <Tab label="Challenger Cup" />
+        </Tabs>
+        {this.state.tabValue === 0 && (
+          <div>
+            <Tabs
+              value={this.state.secondaryTabValue}
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={this.handleSecondaryTabChange}
+            >
+              <Tab label="Main" />
+              <Tab label="3rd place" />
+              <Tab label="5th place" />
+              <Tab label="7th place" />
+              <Tab label="9th place" />
+            </Tabs>
+            <Bracket
+              participantsNumber={10}
+              games={[
+                { home: 'B4', away: 'A5' },
+                { home: 'B5', away: 'A4' },
+                { home: 'A1', away: 'Winner of Game #1' },
+                { home: 'B2', away: 'A3' },
+                { home: 'B3', away: 'A2' },
+                { home: 'Winner of Game #2', away: 'B1' },
+                { home: 'Winner of Game #3', away: 'Winner of Game #4' },
+                { home: 'Winner of Game #5', away: 'Winner of Game #6' },
+                { home: 'Winner of Game #7', away: 'Winner of Game #8' },
+              ]}
+            />
+          </div>
+        )}
+        {this.state.tabValue === 1 && (
+          <Bracket
+            participantsNumber={10}
+            games={[
+              { home: 'B9', away: 'A10' },
+              { home: 'B10', away: 'A9' },
+              { home: 'A6', away: 'Winner of Game #1' },
+              { home: 'B7', away: 'A8' },
+              { home: 'B8', away: 'A7' },
+              { home: 'Winner of Game #2', away: 'B6' },
+              { home: 'Winner of Game #3', away: 'Winner of Game #4' },
+              { home: 'Winner of Game #5', away: 'Winner of Game #6' },
+              { home: 'Winner of Game #7', away: 'Winner of Game #8' },
+            ]}
+          />
+        )}
       </div>
     );
   }
