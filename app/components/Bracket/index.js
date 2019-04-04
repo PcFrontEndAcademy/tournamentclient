@@ -12,11 +12,11 @@ import { getEliminationRoundNumber } from '../../helpers/numberManagement';
 function Bracket(props) {
   const gridContainer = {
     // backgroundColor: 'white',
-    height: '95vh',
+    height: `${props.height}vh`,
     position: 'relative',
   };
 
-  const { participantsNumber, games } = props;
+  const { participantsNumber, games, gameNumberModifier } = props;
   // const groups = [0, 1];
   // const groupLetters = ['A', 'B'];
 
@@ -35,7 +35,7 @@ function Bracket(props) {
         cardCount = participantsNumber - 2 ** (round - 1);
       }
 
-      const containerHeight = window.innerHeight * 0.95;
+      const containerHeight = (window.innerHeight * props.height) / 100;
       const cardHeight = 98;
       const totalCardHeight = cardCount * cardHeight;
       const spacesCount = cardCount + 1;
@@ -66,7 +66,11 @@ function Bracket(props) {
               height: '66px',
             }}
           >
-            <VersusCard away={away} home={home} matchNumber={currentMatch} />
+            <VersusCard
+              away={away}
+              home={home}
+              matchNumber={currentMatch + gameNumberModifier}
+            />
           </div>,
         );
       }
@@ -83,9 +87,16 @@ function Bracket(props) {
   );
 }
 
+Bracket.defaultProps = {
+  height: 95,
+  gameNumberModifier: 0,
+};
+
 Bracket.propTypes = {
   participantsNumber: PropTypes.number.isRequired,
   games: PropTypes.array,
+  height: PropTypes.number,
+  gameNumberModifier: PropTypes.number,
 };
 
 export default Bracket;

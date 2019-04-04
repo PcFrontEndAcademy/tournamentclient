@@ -27,7 +27,7 @@ export class EliminationRoundPage extends React.Component {
   };
 
   handleTabChange = (event, tabValue) => {
-    this.setState({ tabValue });
+    this.setState({ tabValue, secondaryTabValue: 0 });
   };
 
   handleSecondaryTabChange = (event, secondaryTabValue) => {
@@ -56,42 +56,146 @@ export class EliminationRoundPage extends React.Component {
               onChange={this.handleSecondaryTabChange}
             >
               <Tab label="Main" />
-              <Tab label="3rd place" />
-              <Tab label="5th place" />
-              <Tab label="7th place" />
-              <Tab label="9th place" />
+              <Tab label="Other places" />
             </Tabs>
-            <Bracket
-              participantsNumber={10}
-              games={[
-                { home: 'B4', away: 'A5' },
-                { home: 'B5', away: 'A4' },
-                { home: 'A1', away: 'Winner of Game #1' },
-                { home: 'B2', away: 'A3' },
-                { home: 'B3', away: 'A2' },
-                { home: 'Winner of Game #2', away: 'B1' },
-                { home: 'Winner of Game #3', away: 'Winner of Game #4' },
-                { home: 'Winner of Game #5', away: 'Winner of Game #6' },
-                { home: 'Winner of Game #7', away: 'Winner of Game #8' },
-              ]}
-            />
+            {this.state.secondaryTabValue === 0 && (
+              <Bracket
+                participantsNumber={10}
+                games={[
+                  { home: 'B4', away: 'A5' },
+                  { home: 'B5', away: 'A4' },
+                  { home: 'A1', away: 'Winner of Game #1' },
+                  { home: 'B2', away: 'A3' },
+                  { home: 'B3', away: 'A2' },
+                  { home: 'Winner of Game #2', away: 'B1' },
+                  { home: 'Winner of Game #3', away: 'Winner of Game #4' },
+                  { home: 'Winner of Game #5', away: 'Winner of Game #6' },
+                  { home: 'Winner of Game #7', away: 'Winner of Game #8' },
+                ]}
+              />
+            )}
+            {this.state.secondaryTabValue === 1 && (
+              <div>
+                <h2>3rd place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={14}
+                  height={20}
+                  participantsNumber={2}
+                  games={[
+                    { home: 'Losser of Game #7', away: 'Losser of Game #8' },
+                  ]}
+                />
+                <h2>5th place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={10}
+                  height={40}
+                  participantsNumber={4}
+                  games={[
+                    { home: 'Losser of Game #3', away: 'Losser of Game #4' },
+                    { home: 'Losser of Game #5', away: 'Losser of Game #6' },
+                    { home: 'Winner of Game #11', away: 'Winner of Game #12' },
+                  ]}
+                />
+                <h2>7th place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={13}
+                  height={20}
+                  participantsNumber={2}
+                  games={[
+                    { home: 'Losser of Game #11', away: 'Losser of Game #12' },
+                  ]}
+                />
+                <h2>9th place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={9}
+                  height={20}
+                  participantsNumber={2}
+                  games={[
+                    { home: 'Losser of Game #1', away: 'Losser of Game #2' },
+                  ]}
+                />
+              </div>
+            )}
           </div>
         )}
         {this.state.tabValue === 1 && (
-          <Bracket
-            participantsNumber={10}
-            games={[
-              { home: 'B9', away: 'A10' },
-              { home: 'B10', away: 'A9' },
-              { home: 'A6', away: 'Winner of Game #1' },
-              { home: 'B7', away: 'A8' },
-              { home: 'B8', away: 'A7' },
-              { home: 'Winner of Game #2', away: 'B6' },
-              { home: 'Winner of Game #3', away: 'Winner of Game #4' },
-              { home: 'Winner of Game #5', away: 'Winner of Game #6' },
-              { home: 'Winner of Game #7', away: 'Winner of Game #8' },
-            ]}
-          />
+          <div>
+            <Tabs
+              value={this.state.secondaryTabValue}
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={this.handleSecondaryTabChange}
+            >
+              <Tab label="Main" />
+              <Tab label="Other places" />
+            </Tabs>
+            {this.state.secondaryTabValue === 0 && (
+              <Bracket
+                participantsNumber={10}
+                games={[
+                  { home: 'B9', away: 'A10' },
+                  { home: 'B10', away: 'A9' },
+                  { home: 'A6', away: 'Winner of Game #1' },
+                  { home: 'B7', away: 'A8' },
+                  { home: 'B8', away: 'A7' },
+                  { home: 'Winner of Game #2', away: 'B6' },
+                  { home: 'Winner of Game #3', away: 'Winner of Game #4' },
+                  { home: 'Winner of Game #5', away: 'Winner of Game #6' },
+                  { home: 'Winner of Game #7', away: 'Winner of Game #8' },
+                ]}
+              />
+            )}
+            {this.state.secondaryTabValue === 1 && (
+              <div>
+                <h2>3rd place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={14}
+                  height={20}
+                  participantsNumber={2}
+                  games={[
+                    { home: 'Losser of Game #7', away: 'Losser of Game #8' },
+                  ]}
+                />
+                <h2>5th place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={10}
+                  height={40}
+                  participantsNumber={4}
+                  games={[
+                    { home: 'Losser of Game #3', away: 'Losser of Game #4' },
+                    { home: 'Losser of Game #5', away: 'Losser of Game #6' },
+                    { home: 'Winner of Game #11', away: 'Winner of Game #12' },
+                  ]}
+                />
+                <h2>7th place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={13}
+                  height={20}
+                  participantsNumber={2}
+                  games={[
+                    { home: 'Losser of Game #11', away: 'Losser of Game #12' },
+                  ]}
+                />
+                <h2>9th place</h2>
+                <hr />
+                <Bracket
+                  gameNumberModifier={9}
+                  height={20}
+                  participantsNumber={2}
+                  games={[
+                    { home: 'Losser of Game #1', away: 'Losser of Game #2' },
+                  ]}
+                />
+              </div>
+            )}
+          </div>
         )}
       </div>
     );
