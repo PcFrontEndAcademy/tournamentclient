@@ -18,7 +18,7 @@ import saga from './saga';
 import { getParticipants, createParticipant } from './actions';
 import BaseList from '../../components/lists/Base';
 import Dialog from '../../components/Dialog';
-import Config from '../../api/config';
+import RestrictedAccess from '../../components/RestrictedAcess';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ParticipantsPage extends React.Component {
@@ -48,11 +48,10 @@ export class ParticipantsPage extends React.Component {
 
   render() {
     const { participants } = this.props;
-    const isLoggedInUser = Config.GET_TOKEN();
     return (
       <div>
         <h1>Participants</h1>
-        {isLoggedInUser && (
+        <RestrictedAccess>
           <Dialog
             buttonTitle="Add new"
             handleSubmit={this.addPlayer}
@@ -67,7 +66,7 @@ export class ParticipantsPage extends React.Component {
               />
             </div>
           </Dialog>
-        )}
+        </RestrictedAccess>
         <br />
         <BaseList
           items={participants}

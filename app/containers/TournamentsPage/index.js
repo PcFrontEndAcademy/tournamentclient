@@ -19,7 +19,7 @@ import saga from './saga';
 import { getTournaments, createTournament } from './actions';
 import Tournaments from '../../components/lists/tournaments';
 import DialogForm from '../../components/Dialog/dialogForm';
-import CONFIG from '../../api/config';
+import RestrictedAcces from '../../components/RestrictedAcess';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TournamentsPage extends React.Component {
@@ -37,11 +37,10 @@ export class TournamentsPage extends React.Component {
 
   render() {
     const { tournaments } = this.props;
-    const isLoggedInUser = CONFIG.GET_TOKEN();
     return (
       <div>
         <h1>Tournaments</h1>
-        {isLoggedInUser && (
+        <RestrictedAcces>
           <DialogForm
             buttonTitle="Add new"
             handleSubmit={this.addTournament}
@@ -60,7 +59,7 @@ export class TournamentsPage extends React.Component {
               </Select>,
             ]}
           />
-        )}
+        </RestrictedAcces>
         <Tournaments
           tournaments={tournaments}
           groupsRedirect={this.groupsRedirect}

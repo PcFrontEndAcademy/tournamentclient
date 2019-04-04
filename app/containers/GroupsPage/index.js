@@ -31,6 +31,7 @@ import DialogForm from '../../components/Dialog/dialogForm';
 import { buildFullName } from '../../helpers/textManagment';
 import VersusCard from '../../components/VersusCard';
 import CONFIG from '../../api/config';
+import RestrictedAcces from '../../components/RestrictedAcess';
 
 /* eslint-disable react/prefer-stateless-function */
 export class GroupsPage extends React.Component {
@@ -102,13 +103,12 @@ export class GroupsPage extends React.Component {
     const isGroupStageStarted =
       groups && groups.length > 0 && groups[0].results.length > 0;
 
-    const isLoggedInUser = CONFIG.GET_TOKEN();
     return (
       <div>
         <h1>
           Groups{' '}
-          {!isGroupStageStarted &&
-            (isLoggedInUser && (
+          {!isGroupStageStarted && (
+            <RestrictedAcces>
               <Button
                 color="primary"
                 variant="contained"
@@ -116,7 +116,8 @@ export class GroupsPage extends React.Component {
               >
                 Start group stage
               </Button>
-            ))}
+            </RestrictedAcces>
+          )}
           {isGroupStageStarted && (
             <Button
               color="primary"
@@ -136,31 +137,33 @@ export class GroupsPage extends React.Component {
             </Button>
           )}
         </h1>
-        {!isGroupStageStarted &&
-          (isLoggedInUser && (
+        {!isGroupStageStarted && (
+          <RestrictedAcces>
             <DialogForm
               buttonTitle="Add new"
               handleSubmit={this.addGroup}
               fields={[<TextField name="name" fullWidth label="Name" />]}
             />
-          ))}
-        {!isGroupStageStarted &&
-          (isLoggedInUser && (
+          </RestrictedAcces>
+        )}
+        {!isGroupStageStarted && (
+          <RestrictedAcces>
             <Autocomplete
               options={options}
               placeholder="Participant"
               onChange={this.participantChanged}
               value={this.state.participantToAdd}
             />
-          ))}
+          </RestrictedAcces>
+        )}
         {this.state.standings &&
           groups.map(group => (
             <div key={group._id}>
               <h2>
                 {group.name}
                 <br />
-                {!isGroupStageStarted &&
-                  (isLoggedInUser && (
+                {!isGroupStageStarted && (
+                  <RestrictedAcces>
                     <Button
                       disabled={this.state.participantToAdd === null}
                       color="primary"
@@ -169,7 +172,8 @@ export class GroupsPage extends React.Component {
                     >
                       Add player
                     </Button>
-                  ))}
+                  </RestrictedAcces>
+                )}
               </h2>
               <BaseList
                 items={group.participants}
@@ -205,7 +209,7 @@ export class GroupsPage extends React.Component {
                         key={result._id}
                         home={buildFullName(result.home.name)}
                         away={buildFullName(result.away.name)}
-                        enableEdit={isLoggedInUser != null}
+                        enableEdit={CONFIG.GET_TOKEN() != null}
                         saveScore={(homeScore, awayScore) =>
                           this.saveScore(
                             homeScore,
