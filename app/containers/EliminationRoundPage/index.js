@@ -83,7 +83,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Losser of Game #7', away: 'Losser of Game #8' },
+                    { home: 'Looser of Game #7', away: 'Looser of Game #8' },
                   ]}
                 />
                 <h2>5th place</h2>
@@ -93,8 +93,8 @@ export class EliminationRoundPage extends React.Component {
                   height={40}
                   participantsNumber={4}
                   games={[
-                    { home: 'Losser of Game #3', away: 'Losser of Game #4' },
-                    { home: 'Losser of Game #5', away: 'Losser of Game #6' },
+                    { home: 'Looser of Game #3', away: 'Looser of Game #4' },
+                    { home: 'Looser of Game #5', away: 'Looser of Game #6' },
                     { home: 'Winner of Game #11', away: 'Winner of Game #12' },
                   ]}
                 />
@@ -105,7 +105,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Losser of Game #11', away: 'Losser of Game #12' },
+                    { home: 'Looser of Game #11', away: 'Looser of Game #12' },
                   ]}
                 />
                 <h2>9th place</h2>
@@ -115,7 +115,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Losser of Game #1', away: 'Losser of Game #2' },
+                    { home: 'Looser of Game #1', away: 'Looser of Game #2' },
                   ]}
                 />
               </div>
@@ -158,7 +158,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Losser of Game #7', away: 'Losser of Game #8' },
+                    { home: 'Looser of Game #7', away: 'Looser of Game #8' },
                   ]}
                 />
                 <h2>5th place</h2>
@@ -168,8 +168,8 @@ export class EliminationRoundPage extends React.Component {
                   height={40}
                   participantsNumber={4}
                   games={[
-                    { home: 'Losser of Game #3', away: 'Losser of Game #4' },
-                    { home: 'Losser of Game #5', away: 'Losser of Game #6' },
+                    { home: 'Looser of Game #3', away: 'Looser of Game #4' },
+                    { home: 'Looser of Game #5', away: 'Looser of Game #6' },
                     { home: 'Winner of Game #11', away: 'Winner of Game #12' },
                   ]}
                 />
@@ -180,7 +180,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Losser of Game #11', away: 'Losser of Game #12' },
+                    { home: 'Looser of Game #11', away: 'Looser of Game #12' },
                   ]}
                 />
                 <h2>9th place</h2>
@@ -190,7 +190,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Losser of Game #1', away: 'Losser of Game #2' },
+                    { home: 'Looser of Game #1', away: 'Looser of Game #2' },
                   ]}
                 />
               </div>
