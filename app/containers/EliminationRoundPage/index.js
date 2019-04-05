@@ -142,7 +142,7 @@ export class EliminationRoundPage extends React.Component {
                     home: '(B10) Julius D.',
                     homeScore: 0,
                     away: '(A9) Egidijus B.',
-                    awayScore: 3,
+                    awayScore: 5,
                   },
                   { home: '(A6) Edgaras N.', away: 'Winner of Game #1' },
                   { home: '(B7) Lukas S.', away: '(A8) Artūras Ž.' },
