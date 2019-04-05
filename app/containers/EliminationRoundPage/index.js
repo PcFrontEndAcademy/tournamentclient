@@ -137,12 +137,17 @@ export class EliminationRoundPage extends React.Component {
               <Bracket
                 participantsNumber={10}
                 games={[
-                  { home: 'B9', away: 'A10' },
-                  { home: 'B10', away: 'A9' },
-                  { home: 'A6', away: 'Winner of Game #1' },
-                  { home: 'B7', away: 'A8' },
-                  { home: 'B8', away: 'A7' },
-                  { home: 'Winner of Game #2', away: 'B6' },
+                  { home: '(B9) Neringa F.', away: '(A10) Tadas V.' },
+                  {
+                    home: '(B10) Julius D.',
+                    homeScore: 0,
+                    away: '(A9) Egidijus B.',
+                    awayScore: 3,
+                  },
+                  { home: '(A6) Edgaras N.', away: 'Winner of Game #1' },
+                  { home: '(B7) Lukas S.', away: '(A8) Artūras Ž.' },
+                  { home: '(B8) Justinas B.', away: '(A7) Rimas D.' },
+                  { home: '(A9) Egidijus B.', away: '(B6) Simas V.' },
                   { home: 'Winner of Game #3', away: 'Winner of Game #4' },
                   { home: 'Winner of Game #5', away: 'Winner of Game #6' },
                   { home: 'Winner of Game #7', away: 'Winner of Game #8' },
@@ -190,7 +195,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Looser of Game #1', away: 'Looser of Game #2' },
+                    { home: 'Looser of Game #1', away: '(B10) Julius D.' },
                   ]}
                 />
               </div>

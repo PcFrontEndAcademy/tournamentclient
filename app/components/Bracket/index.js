@@ -45,8 +45,7 @@ function Bracket(props) {
       for (let card = 1; card <= cardCount; card += 1) {
         const currentMatch = branches.length + 1;
 
-        const { home } = games[currentMatch - 1];
-        const { away } = games[currentMatch - 1];
+        const { home, away, homeScore, awayScore } = games[currentMatch - 1];
         // if (participantsLeft.length !== 0) {
         //   home = `A ${participantsLeft}`;
         //   away = `B ${participantsNumber / 2}`;
@@ -70,6 +69,8 @@ function Bracket(props) {
               away={away}
               home={home}
               matchNumber={currentMatch + gameNumberModifier}
+              homeScore={homeScore}
+              awayScore={awayScore}
             />
           </div>,
         );
