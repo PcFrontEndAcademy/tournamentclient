@@ -8,6 +8,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -16,7 +17,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-function Tournaments({ tournaments, groupsRedirect }) {
+function Tournaments({ tournaments, history }) {
   return tournaments.map(tournament => (
     <Card
       key={tournament._id}
@@ -46,17 +47,25 @@ function Tournaments({ tournaments, groupsRedirect }) {
       </CardActionArea>
       <CardActions>
         <Button
-          onClick={() => groupsRedirect(tournament._id)}
+          onClick={() => history.push(`/${tournament._id}/groups`)}
           size="small"
           color="primary"
         >
           Groups
         </Button>
-        <Button size="small" color="primary">
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => history.push('/eliminationround')}
+        >
           Elimination round
         </Button>
-        <Button size="small" color="primary">
-          Standings
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => history.push(`/${tournament._id}/details`)}
+        >
+          Details
         </Button>
       </CardActions>
     </Card>
@@ -65,4 +74,4 @@ function Tournaments({ tournaments, groupsRedirect }) {
 
 Tournaments.propTypes = {};
 
-export default Tournaments;
+export default withRouter(Tournaments);

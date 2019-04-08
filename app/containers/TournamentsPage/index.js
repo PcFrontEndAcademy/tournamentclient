@@ -27,23 +27,15 @@ export class TournamentsPage extends React.Component {
     this.props.get();
   }
 
-  groupsRedirect = tournamentId => {
-    this.props.history.push(`/${tournamentId}/groups`);
-  };
-
-  addTournament = tournament => {
-    this.props.createTournament(tournament);
-  };
-
   render() {
-    const { tournaments } = this.props;
+    const { tournaments, createTournament: create } = this.props;
     return (
       <div>
         <h1>Tournaments</h1>
         <RestrictedAcces>
           <DialogForm
             buttonTitle="Add new"
-            handleSubmit={this.addTournament}
+            handleSubmit={create}
             fields={[
               <TextField name="name" fullWidth label="Name" />,
               <Select
@@ -60,10 +52,7 @@ export class TournamentsPage extends React.Component {
             ]}
           />
         </RestrictedAcces>
-        <Tournaments
-          tournaments={tournaments}
-          groupsRedirect={this.groupsRedirect}
-        />
+        <Tournaments tournaments={tournaments} />
       </div>
     );
   }
@@ -72,7 +61,6 @@ export class TournamentsPage extends React.Component {
 TournamentsPage.propTypes = {
   tournaments: PropTypes.array,
   get: PropTypes.func,
-  history: PropTypes.any,
   createTournament: PropTypes.func,
 };
 

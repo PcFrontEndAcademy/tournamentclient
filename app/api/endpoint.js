@@ -1,6 +1,7 @@
 export default {
   TOURNAMENT: {
     BASE: '/tournaments',
+    GET_ONE: id => `/tournaments/${id}`,
   },
   GROUP: {
     BASE: '/groups',

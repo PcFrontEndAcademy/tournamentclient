@@ -12,6 +12,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import TournamentDetailsPage from '../TournamentDetails/Loadable';
 import TournamentsPage from '../TournamentsPage/Loadable';
 import ParticipantsPage from '../ParticipantsPage/Loadable';
 import EliminationRoundPage from '../EliminationRoundPage/Loadable';
@@ -28,6 +29,11 @@ export default function App() {
         <Route exact path="/tournaments" component={TournamentsPage} />
         <Route exact path="/participants" component={ParticipantsPage} />
         <Route exact path="/:tournamentId/groups" component={GroupsPage} />
+        <Route
+          exact
+          path="/:tournamentId/details"
+          component={TournamentDetailsPage}
+        />
         <Route
           exact
           path="/eliminationround"
