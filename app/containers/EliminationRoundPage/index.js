@@ -140,7 +140,7 @@ export class EliminationRoundPage extends React.Component {
                   { home: '(B9) Neringa F.', away: '(A10) Tadas V.' },
                   {
                     home: '(B10) Julius D.',
-                    homeScore: 0,
+                    homeScore: 1,
                     away: '(A9) Egidijus B.',
                     awayScore: 5,
                   },
