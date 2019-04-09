@@ -1,6 +1,12 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { GET_TOURNAMENT, SET_TOURNAMENT, DELETE_TOURNAMENT } from './constants';
+import {
+  GET_TOURNAMENT,
+  SET_TOURNAMENT,
+  DELETE_TOURNAMENT,
+  CREATE_GROUPS,
+} from './constants';
 import * as service from '../../api/tournamentsService';
+import * as groupService from '../../api/groupService';
 import { callAction } from '../App/saga';
 import { SET_INFO } from '../InfoProvider/constants';
 
@@ -24,7 +30,22 @@ function* deleteTournament(action) {
   });
 }
 
+function* createGroups(action) {
+  // eslint-disable-next-line func-names
+  yield callAction([groupService.create, action.groups], function*() {
+    yield put({
+      type: SET_INFO,
+      message: 'Groups Created !!!',
+    });
+    yield put({
+      type: GET_TOURNAMENT,
+      id: action.groups.tournament,
+    });
+  });
+}
+
 export default function*() {
   yield takeEvery(GET_TOURNAMENT, get);
   yield takeEvery(DELETE_TOURNAMENT, deleteTournament);
+  yield takeEvery(CREATE_GROUPS, createGroups);
 }

@@ -3,7 +3,6 @@ import { put, takeEvery } from 'redux-saga/effects';
 import {
   GET_GROUPS,
   SET_GROUPS,
-  CREATE_GROUP,
   GET_UNUSED_PARTICIPANTS,
   SET_UNUSED_PARTICIPANTS,
   ADD_PARTICIPANT_TO_GROUP,
@@ -20,19 +19,6 @@ function* get(action) {
     yield put({
       type: SET_GROUPS,
       groups: response.data,
-    });
-  });
-}
-
-function* create(action) {
-  yield callAction([service.create, action.group], function*() {
-    yield put({
-      type: SET_INFO,
-      message: 'Group created !!!',
-    });
-    yield put({
-      type: GET_GROUPS,
-      tournamentId: action.group.tournament,
     });
   });
 }
@@ -106,7 +92,6 @@ function* addResult(action) {
 
 export default function*() {
   yield takeEvery(GET_GROUPS, get);
-  yield takeEvery(CREATE_GROUP, create);
   yield takeEvery(GET_UNUSED_PARTICIPANTS, getUnusedParticipants);
   yield takeEvery(ADD_PARTICIPANT_TO_GROUP, addParticipant);
   yield takeEvery(START_GROUP_STAGE, start);

@@ -16,6 +16,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import RestrictedAcess from '../../RestrictedAcess';
 
 function Tournaments({ tournaments, history }) {
   return tournaments.map(tournament => (
@@ -60,13 +61,15 @@ function Tournaments({ tournaments, history }) {
         >
           Elimination round
         </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => history.push(`/${tournament._id}/details`)}
-        >
-          Details
-        </Button>
+        <RestrictedAcess>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => history.push(`/${tournament._id}/details`)}
+          >
+            Details
+          </Button>
+        </RestrictedAcess>
       </CardActions>
     </Card>
   ));

@@ -7,7 +7,6 @@
 import {
   GET_GROUPS,
   SET_GROUPS,
-  CREATE_GROUP,
   GET_UNUSED_PARTICIPANTS,
   SET_UNUSED_PARTICIPANTS,
   ADD_PARTICIPANT_TO_GROUP,
@@ -26,13 +25,6 @@ export function setGroups(groups) {
   return {
     type: SET_GROUPS,
     groups,
-  };
-}
-
-export function createGroup(group) {
-  return {
-    type: CREATE_GROUP,
-    group,
   };
 }
 

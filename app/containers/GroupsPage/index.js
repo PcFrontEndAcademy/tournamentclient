@@ -13,21 +13,18 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '../../components/fields/autocomplete';
 import makeSelect from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {
   getGroups,
-  createGroup,
   getUnusedParticipants,
   addParticipantToGroup,
   startGroupStage,
   addResult,
 } from './actions';
 import BaseList from '../../components/lists/Base';
-import DialogForm from '../../components/Dialog/dialogForm';
 import { buildFullName } from '../../helpers/textManagment';
 import VersusCard from '../../components/VersusCard';
 import CONFIG from '../../api/config';
@@ -48,11 +45,6 @@ export class GroupsPage extends React.Component {
     this.props.get(tournamentId);
     this.props.getUnusedParticipants(tournamentId);
   }
-
-  addGroup = group => {
-    const { tournamentId } = this.props.match.params;
-    this.props.createGroup({ tournament: tournamentId, ...group });
-  };
 
   participantChanged = participant => {
     this.setState({ participantToAdd: participant });
@@ -137,15 +129,6 @@ export class GroupsPage extends React.Component {
             </Button>
           )}
         </h1>
-        {!isGroupStageStarted && (
-          <RestrictedAcces>
-            <DialogForm
-              buttonTitle="Add new"
-              handleSubmit={this.addGroup}
-              fields={[<TextField name="name" fullWidth label="Name" />]}
-            />
-          </RestrictedAcces>
-        )}
         {!isGroupStageStarted && (
           <RestrictedAcces>
             <Autocomplete
@@ -249,7 +232,6 @@ GroupsPage.propTypes = {
   get: PropTypes.func,
   match: PropTypes.any,
   groups: PropTypes.array,
-  createGroup: PropTypes.func,
   getUnusedParticipants: PropTypes.func,
   unusedParticipants: PropTypes.array,
   addParticipantToGroup: PropTypes.func,
@@ -262,7 +244,6 @@ const mapStateToProps = makeSelect();
 function mapDispatchToProps(dispatch) {
   return {
     get: tournamentId => dispatch(getGroups(tournamentId)),
-    createGroup: group => dispatch(createGroup(group)),
     getUnusedParticipants: tournamentId =>
       dispatch(getUnusedParticipants(tournamentId)),
     addParticipantToGroup: (groupId, participantId, tournamentId) =>
