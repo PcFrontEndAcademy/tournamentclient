@@ -1,4 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { createGlobalStyle } from 'styled-components';
+
+const leftGradientColors = ['B5AC49', '085078', 'EB3349', '333333', '3E5151', '536976'];
+const rightGradientColors = ['3CA55C', '85D8CE', 'F45C43', 'dd1818', 'DECBA4', '292E49'];
+
+const index = Math.floor(Math.random() * Math.floor(rightGradientColors.length));
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -17,8 +23,8 @@ const GlobalStyle = createGlobalStyle`
 
   #app {
     background: #3CA55C;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #B5AC49, #3CA55C);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #B5AC49, #3CA55C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #${leftGradientColors[index]}, #${rightGradientColors[index]});
+    background: linear-gradient(to right, #${leftGradientColors[index]}, #${rightGradientColors[index]});
     min-height: 100%;
     min-width: 100%;
   }

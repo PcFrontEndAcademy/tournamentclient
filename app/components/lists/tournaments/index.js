@@ -50,13 +50,13 @@ function Tournaments({ tournaments, history }) {
         <Button
           onClick={() => history.push(`/${tournament._id}/groups`)}
           size="small"
-          color="primary"
+          color="secondary"
         >
           Groups
         </Button>
         <Button
           size="small"
-          color="primary"
+          color="secondary"
           onClick={() => history.push('/eliminationround')}
         >
           Elimination round
@@ -64,7 +64,7 @@ function Tournaments({ tournaments, history }) {
         <RestrictedAcess>
           <Button
             size="small"
-            color="primary"
+            color="secondary"
             onClick={() => history.push(`/${tournament._id}/details`)}
           >
             Details

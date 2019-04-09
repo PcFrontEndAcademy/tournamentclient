@@ -45,11 +45,11 @@ export default class DialogBase extends React.Component {
           <DialogTitle>Dialog</DialogTitle>
           <DialogContent>{children}</DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} color="secondary">
               Cancel
             </Button>
             {handleSubmit && (
-              <Button onClick={this.submit} color="primary">
+              <Button onClick={this.submit} color="secondary">
                 Save
               </Button>
             )}
