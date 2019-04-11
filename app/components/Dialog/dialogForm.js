@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from './index';
@@ -11,11 +12,28 @@ export default class DialogForm extends React.Component {
     this.setState({ formData: {} });
   };
 
-  handleChange = event => {
+  handleChange = (event, autocompleteData) => {
     const { target } = event;
-    this.setState(state => ({
-      formData: Object.assign(state.formData, { [target.name]: target.value }),
-    }));
+    if (target) {
+      this.setState(state => ({
+        formData: Object.assign(state.formData, {
+          [target.name]: target.value,
+        }),
+      }));
+    } else if (autocompleteData && autocompleteData.name) {
+      let value;
+      if (typeof event === 'string') {
+        value = event.value;
+      } else {
+        value = event.map(item => item.value);
+      }
+
+      this.setState(state => ({
+        formData: Object.assign(state.formData, {
+          [autocompleteData.name]: value,
+        }),
+      }));
+    }
   };
 
   submit = () => {

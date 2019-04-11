@@ -60,6 +60,8 @@ export class HomePage extends React.Component {
         <h1>HOME</h1>
         <Link to="/participants">Participants</Link>
         <br />
+        <Link to="/teams">Teams</Link>
+        <br />
         <Link to="/tournaments">Tournaments</Link>
       </div>
     );

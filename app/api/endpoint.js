@@ -13,6 +13,9 @@ export default {
     BASE: '/participants',
     GET_UNUSED: '/participants/getUnusedInTournament',
   },
+  TEAM: {
+    BASE: '/teams',
+  },
   USER: {
     LOGIN: '/user/login',
   },

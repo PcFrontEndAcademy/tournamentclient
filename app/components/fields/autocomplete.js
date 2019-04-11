@@ -180,7 +180,16 @@ const components = {
 };
 
 function Autocomplete(props) {
-  const { classes, theme, value, onChange, placeholder, options } = props;
+  const {
+    classes,
+    theme,
+    value,
+    onChange,
+    placeholder,
+    options,
+    isMulti,
+    name,
+  } = props;
 
   const selectStyles = {
     input: base => ({
@@ -201,9 +210,11 @@ function Autocomplete(props) {
           options={options}
           components={components}
           value={value}
+          name={name}
           onChange={onChange}
           placeholder={placeholder}
           isClearable
+          isMulti={isMulti}
         />
         <div className={classes.divider} />
       </NoSsr>
