@@ -168,7 +168,12 @@ export class EliminationRoundPage extends React.Component {
                     awayScore: 5,
                   },
                   { home: '(A6) Edgaras N.', away: 'Winner of Game #1' },
-                  { home: '(B7) Lukas S.', away: '(A8) Artūras Ž.' },
+                  {
+                    home: '(B7) Lukas S.',
+                    homeScore: 5,
+                    away: '(A8) Artūras Ž.',
+                    awayScore: 0,
+                  },
                   {
                     home: '(B8) Justinas B.',
                     homeScore: 0,
@@ -181,7 +186,7 @@ export class EliminationRoundPage extends React.Component {
                     away: '(B6) Simas V.',
                     awayScore: 0,
                   },
-                  { home: 'Winner of Game #3', away: 'Winner of Game #4' },
+                  { home: 'Winner of Game #3', away: '(B7) Lukas S.' },
                   {
                     home: '(A7) Rimas D.',
                     homeScore: 5,
@@ -211,7 +216,7 @@ export class EliminationRoundPage extends React.Component {
                   height={40}
                   participantsNumber={4}
                   games={[
-                    { home: 'Looser of Game #3', away: 'Looser of Game #4' },
+                    { home: 'Looser of Game #3', away: '(A8) Artūras Ž.' },
                     { home: '(B8) Justinas B.', away: '(B6) Simas V.' },
                     { home: 'Winner of Game #11', away: 'Winner of Game #12' },
                   ]}
