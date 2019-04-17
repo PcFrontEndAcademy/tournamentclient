@@ -134,7 +134,14 @@ export class EliminationRoundPage extends React.Component {
                   gameNumberModifier={9}
                   height={20}
                   participantsNumber={2}
-                  games={[{ home: '(B4) Almantas K.', away: '(B5) Ignas Č.' }]}
+                  games={[
+                    {
+                      home: '(B4) Almantas K.',
+                      homeScore: 5,
+                      away: '(B5) Ignas Č.',
+                      awayScore: 1,
+                    },
+                  ]}
                 />
               </div>
             )}
