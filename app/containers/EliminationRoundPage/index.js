@@ -99,8 +99,13 @@ export class EliminationRoundPage extends React.Component {
                     awayScore: 3,
                   },
                   { home: '(A5) Martynas J.', away: '(A3) Rokas J.' },
-                  { home: '(A2) Ernestas B.', away: '(A4) Darius O.' },
-                  { home: 'Winner of Game #7', away: 'Winner of Game #8' },
+                  {
+                    home: '(A2) Ernestas B.',
+                    homeScore: 5,
+                    away: '(A4) Darius O.',
+                    awayScore: 2,
+                  },
+                  { home: 'Winner of Game #7', away: '(A2) Ernestas B.' },
                 ]}
               />
             )}
@@ -113,7 +118,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Looser of Game #7', away: 'Looser of Game #8' },
+                    { home: 'Looser of Game #7', away: '(A4) Darius O.' },
                   ]}
                 />
                 <h2>5th place</h2>
@@ -124,8 +129,13 @@ export class EliminationRoundPage extends React.Component {
                   participantsNumber={4}
                   games={[
                     { home: '(A1) Rimvydas T.', away: '(B2) Edvinas V.' },
-                    { home: '(B3) Domantas J.', away: '(B1) Laimonas M.' },
-                    { home: 'Winner of Game #11', away: 'Winner of Game #12' },
+                    {
+                      home: '(B3) Domantas J.',
+                      homeScore: 0,
+                      away: '(B1) Laimonas M.',
+                      awayScore: 5,
+                    },
+                    { home: 'Winner of Game #11', away: '(B1) Laimonas M.' },
                   ]}
                 />
                 <h2>7th place</h2>
@@ -135,7 +145,7 @@ export class EliminationRoundPage extends React.Component {
                   height={20}
                   participantsNumber={2}
                   games={[
-                    { home: 'Looser of Game #11', away: 'Looser of Game #12' },
+                    { home: 'Looser of Game #11', away: '(B3) Domantas J.' },
                   ]}
                 />
                 <h2>9th place</h2>
