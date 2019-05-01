@@ -2,6 +2,7 @@ export default {
   TOURNAMENT: {
     BASE: '/tournaments',
     GET_ONE: id => `/tournaments/${id}`,
+    UPDATE_SETTINGS: '/tournaments/updateSettings',
   },
   GROUP: {
     BASE: '/groups',
