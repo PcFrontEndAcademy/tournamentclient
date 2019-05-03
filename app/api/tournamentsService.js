@@ -24,3 +24,10 @@ export function update(tournament) {
 export function deleteById(id) {
   return api.DELETE(ENDPOINTS.TOURNAMENT.BASE, { id });
 }
+
+export function updateSettings(tournamentId, settings) {
+  return api.PUT(ENDPOINTS.TOURNAMENT.UPDATE_SETTINGS, {
+    id: tournamentId,
+    ...settings,
+  });
+}

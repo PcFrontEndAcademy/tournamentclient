@@ -8,6 +8,7 @@ import {
   GET_TOURNAMENT,
   SET_TOURNAMENT,
   DELETE_TOURNAMENT,
+  UPDATE_SETTINGS,
   CREATE_GROUPS,
 } from './constants';
 
@@ -29,6 +30,14 @@ export function deleteTournament(id) {
   return {
     type: DELETE_TOURNAMENT,
     id,
+  };
+}
+
+export function updateSettings(id, settings) {
+  return {
+    type: UPDATE_SETTINGS,
+    id,
+    settings,
   };
 }
 
