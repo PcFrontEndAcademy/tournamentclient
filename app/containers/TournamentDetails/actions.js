@@ -10,6 +10,7 @@ import {
   DELETE_TOURNAMENT,
   UPDATE_SETTINGS,
   CREATE_GROUPS,
+  CLEAR_STATE,
 } from './constants';
 
 export function get(id) {
@@ -45,5 +46,11 @@ export function createGroups(groups) {
   return {
     type: CREATE_GROUPS,
     groups,
+  };
+}
+
+export function clearState() {
+  return {
+    type: CLEAR_STATE,
   };
 }

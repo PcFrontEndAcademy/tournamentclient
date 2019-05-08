@@ -11,3 +11,4 @@ export const DELETE_TOURNAMENT = 'app/TournamentDetails/DELETE_TOURNAMENT';
 export const CREATE_GROUPS = 'app/TournamentDetails/CREATE_GROUPS';
 
 export const UPDATE_SETTINGS = 'app/TournamentDetails/UPDATE_SETTINGS';
+export const CLEAR_STATE = 'app/TournamentDetails/CLEAR_STATE';

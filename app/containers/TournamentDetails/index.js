@@ -24,7 +24,13 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectTournamentDetails from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { get, deleteTournament, createGroups, updateSettings } from './actions';
+import {
+  get,
+  deleteTournament,
+  createGroups,
+  updateSettings,
+  clearState,
+} from './actions';
 import DialogForm from '../../components/Dialog/dialogForm';
 import Form from '../../components/Form';
 
@@ -37,6 +43,10 @@ export class TournamentDetails extends React.Component {
   componentDidMount() {
     const { tournamentId } = this.props.match.params;
     this.props.get(tournamentId);
+  }
+
+  componentWillUnmount() {
+    this.props.clearState();
   }
 
   deleteTournament = () => {
@@ -79,28 +89,32 @@ export class TournamentDetails extends React.Component {
           <Tab label="Settings" value="settings" />
           <Tab label="Groups" value="groups" />
         </Tabs>
-        {this.state.tab === 'settings' && (
-          <Form
-            handleSubmit={this.saveSettings}
-            fields={[
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Participant Mode</FormLabel>
-                <RadioGroup name="participantMode">
-                  <FormControlLabel
-                    value="single"
-                    control={<Radio color="primary" />}
-                    label="single"
-                  />
-                  <FormControlLabel
-                    value="teams"
-                    control={<Radio color="primary" />}
-                    label="teams"
-                  />
-                </RadioGroup>
-              </FormControl>,
-            ]}
-          />
-        )}
+        {this.state.tab === 'settings' &&
+          (tournament && (
+            <Form
+              handleSubmit={this.saveSettings}
+              fields={[
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Participant Mode</FormLabel>
+                  <RadioGroup
+                    name="participantMode"
+                    defaultValue={tournament.participantMode}
+                  >
+                    <FormControlLabel
+                      value="single"
+                      control={<Radio color="primary" />}
+                      label="single"
+                    />
+                    <FormControlLabel
+                      value="teams"
+                      control={<Radio color="primary" />}
+                      label="teams"
+                    />
+                  </RadioGroup>
+                </FormControl>,
+              ]}
+            />
+          ))}
         {this.state.tab === 'groups' && (
           <div>
             {tournament &&
@@ -141,6 +155,7 @@ TournamentDetails.propTypes = {
   deleteTournament: PropTypes.func,
   createGroups: PropTypes.func,
   updateSettings: PropTypes.func,
+  clearState: PropTypes.func,
 };
 
 const mapStateToProps = makeSelectTournamentDetails();
@@ -151,6 +166,7 @@ function mapDispatchToProps(dispatch) {
     deleteTournament: id => dispatch(deleteTournament(id)),
     createGroups: groupsData => dispatch(createGroups(groupsData)),
     updateSettings: (id, settings) => dispatch(updateSettings(id, settings)),
+    clearState: () => dispatch(clearState()),
   };
 }
 
