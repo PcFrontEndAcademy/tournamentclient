@@ -14,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 
-function Base({ items, excludeKeys, keyProperty }) {
+function Base({ items, excludeKeys, keyProperty, primaryRows, secondaryRows }) {
   let keys = (items.length > 0 && Object.keys(items[0])) || [];
   keys = keys.filter(key => excludeKeys.indexOf(key) === -1);
   return (
@@ -32,7 +32,10 @@ function Base({ items, excludeKeys, keyProperty }) {
           {items.map((row, index) => (
             <TableRow
               style={{
-                backgroundColor: index < 3 ? '#aed581' : index < 5 && '#ffe082',
+                backgroundColor:
+                  index < primaryRows
+                    ? '#aed581'
+                    : index < primaryRows + secondaryRows && '#ffe082',
               }}
               key={row[keyProperty]}
             >
@@ -57,6 +60,8 @@ Base.propTypes = {
   items: PropTypes.array,
   excludeKeys: PropTypes.array,
   keyProperty: PropTypes.string,
+  primaryRows: PropTypes.number,
+  secondaryRows: PropTypes.number,
 };
 
 export default Base;

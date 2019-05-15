@@ -112,6 +112,13 @@ export class TournamentDetails extends React.Component {
                     />
                   </RadioGroup>
                 </FormControl>,
+                <TextField
+                  type="number"
+                  name="groupQualifiers"
+                  defaultValue={tournament.groupQualifiers}
+                  fullWidth
+                  label="Players to qualify from groups"
+                />,
               ]}
             />
           ))}

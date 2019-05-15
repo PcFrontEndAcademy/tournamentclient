@@ -162,6 +162,8 @@ export class GroupsPage extends React.Component {
                 items={group.participants}
                 excludeKeys={['_id']}
                 keyProperty="_id"
+                primaryRows={group.primaryQualifiers}
+                secondaryRows={group.secondaryQualifiers}
               />
             </div>
           ))}
