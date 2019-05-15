@@ -59,7 +59,7 @@ class VersusCard extends React.Component {
     return (
       <Card
         style={{
-          width: '200px',
+          width: '260px',
           color: 'black',
         }}
       >

@@ -61,7 +61,7 @@ function Bracket(props) {
             style={{
               position: 'absolute',
               top: spaceHeight * card + cardHeight * (card - 1),
-              left: 250 * counter,
+              left: 310 * counter,
               height: '66px',
             }}
           >
