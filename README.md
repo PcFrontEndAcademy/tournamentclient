@@ -51,6 +51,8 @@
 
 ## Features
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c0c9a8ebd3f04f6c928b463805a1bc93)](https://app.codacy.com/app/PcFrontEndAcademy/tournamentclient?utm_source=github.com&utm_medium=referral&utm_content=PcFrontEndAcademy/tournamentclient&utm_campaign=Badge_Grade_Settings)
+
 <dl>
   <dt>Quick scaffolding</dt>
   <dd>Create components, containers, routes, selectors and sagas - and their tests - right from the CLI!</dd>
